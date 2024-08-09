@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location Tracker</title>
+    <title>Manila Ligtas</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
           integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
     <link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
 
 <!-- Navigation Menu -->
 <nav>
-    <h1>Location Tracker</h1>
+    <h1>Manila Ligtas</h1>
     <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">Profile</a></li>
@@ -28,19 +28,57 @@
     <div id="controls">
         <button onclick="sendLocation()">Send Location</button>
         <button onclick="stopTracking()">Stop Tracking</button>
+        <button onclick="measureDistance()">Measure Distance</button>
+        <button onclick="calculateTravelTime()">Travel Time</button>
     </div>
 </main>
 
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 <script>
     const map = L.map('map').setView([51.505, -0.09], 13);
-    let marker, circle, zoomed, watchID;
+    let marker, circle, zoomed, watchID, measureControl;
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // Map Layers
+    const defaultLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    const satelliteLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    const terrainLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        maxZoom: 17,
+        attribution: 'Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap (CC-BY-SA)'
+    });
+
+    const trafficLayer = L.tileLayer('https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=your-api-key', {
+        maxZoom: 22,
+        attribution: '© OpenStreetMap contributors, Thunderforest'
+    });
+
+    const bikingLayer = L.tileLayer('https://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
+    });
+
+    defaultLayer.addTo(map);
+
+    // Map Controls
+    L.control.layers({
+        "Default": defaultLayer,
+        "Satellite": satelliteLayer,
+        "Terrain": terrainLayer,
+        "Traffic": trafficLayer,
+        "Biking": bikingLayer,
     }).addTo(map);
+
+    L.control.scale().addTo(map);
 
     function startTracking() {
         if (navigator.geolocation) {
@@ -108,6 +146,14 @@
             navigator.geolocation.clearWatch(watchID);
             alert("Tracking stopped.");
         }
+    }
+
+    function measureDistance() {
+        // Implement distance measuring tool here
+    }
+
+    function calculateTravelTime() {
+        // Implement travel time calculation tool here
     }
 
     // Start tracking as soon as the page loads

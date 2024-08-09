@@ -1,5 +1,5 @@
- /* Global Styles */
- body {
+/* Global Styles */
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@
 
 /* Navigation Menu */
 nav {
-    background-color: #007bff;
+    background-color: #28a745; /* Green color */
     color: #fff;
     padding: 10px 20px;
     display: flex;
@@ -57,7 +57,7 @@ main {
 }
 
 #map {
-    height: 350px;
+    height: 400px;
     width: 100%;
     max-width: 800px;
     margin: 20px 0;
@@ -75,14 +75,14 @@ button {
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #007bff;
-    color: white;
+    background-color: #ffc107; /* Yellow color */
+    color: #fff;
     border: none;
     border-radius: 5px;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #e0a800; /* Darker yellow */
 }
 
 /* Responsive Design */
